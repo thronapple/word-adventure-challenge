@@ -1,0 +1,51 @@
+<view class="container">
+  <!-- Header -->
+  <view class="header">
+    <text class="title-emoji">📚</text>
+    <text class="title">单词闯关</text>
+    <text class="subtitle">CET-4 词汇挑战</text>
+  </view>
+
+  <!-- Stats Card -->
+  <view class="card stats-card">
+    <view class="stat-item">
+      <text class="stat-value">第 {{currentLevel}} 关</text>
+      <text class="stat-label">当前进度</text>
+    </view>
+    <view class="stat-divider"></view>
+    <view class="stat-item">
+      <text class="stat-value">⭐ {{totalStars}}</text>
+      <text class="stat-label">累计星星</text>
+    </view>
+  </view>
+
+  <!-- Action Buttons -->
+  <button class="btn-primary start-btn" bindtap="startGame">
+    开始闯关
+  </button>
+  <button class="btn-secondary rank-btn" bindtap="goToRank">
+    🏆 排行榜
+  </button>
+
+  <!-- Level Grid -->
+  <view class="card levels-card">
+    <text class="section-title">关卡进度</text>
+    <view class="level-grid">
+      <view
+        wx:for="{{levels}}"
+        wx:key="level"
+        class="level-item {{item.unlocked ? 'unlocked' : 'locked'}} {{item.level === currentLevel ? 'current' : ''}}"
+        bindtap="selectLevel"
+        data-level="{{item.level}}"
+      >
+        <text class="level-number">{{item.level}}</text>
+        <view class="level-stars" wx:if="{{item.stars > 0}}">
+          <text wx:for="{{3}}" wx:for-item="starIdx" wx:key="*this" class="star {{starIdx < item.stars ? 'earned' : 'empty'}}">
+            {{starIdx < item.stars ? '⭐' : '☆'}}
+          </text>
+        </view>
+        <text class="lock-icon" wx:if="{{!item.unlocked}}">🔒</text>
+      </view>
+    </view>
+  </view>
+</view>

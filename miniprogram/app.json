@@ -1,0 +1,17 @@
+{
+  "pages": [
+    "pages/home/home",
+    "pages/game/game",
+    "pages/result/result",
+    "pages/rank/rank"
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#6C5CE7",
+    "navigationBarTitleText": "单词闯关",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#F0F0F5",
+    "backgroundTextStyle": "dark"
+  },
+  "sitemapLocation": "sitemap.json",
+  "style": "v2"
+}

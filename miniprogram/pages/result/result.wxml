@@ -1,0 +1,44 @@
+<view class="container">
+  <!-- Result Icon -->
+  <view class="result-icon">
+    <text class="result-emoji">{{passed ? '🎉' : '💪'}}</text>
+  </view>
+
+  <!-- Result Title -->
+  <text class="result-title">{{passed ? '恭喜过关！' : '继续加油！'}}</text>
+  <text class="result-subtitle" wx:if="{{passed}}">第 {{level}} 关完成</text>
+  <text class="result-subtitle" wx:else>第 {{level}} 关未通过</text>
+
+  <!-- Stars (pass only) -->
+  <view class="stars-display" wx:if="{{passed}}">
+    <text wx:for="{{3}}" wx:key="*this" class="result-star {{index < stars ? 'earned' : ''}}">
+      {{index < stars ? '⭐' : '☆'}}
+    </text>
+  </view>
+
+  <!-- Stats Card -->
+  <view class="card stats-card">
+    <view class="stat-row">
+      <text class="stat-label">正确</text>
+      <text class="stat-value correct">{{correct}}/{{total}}</text>
+    </view>
+    <view class="stat-row">
+      <text class="stat-label">错误</text>
+      <text class="stat-value wrong">{{wrong}}</text>
+    </view>
+    <view class="stat-row">
+      <text class="stat-label">用时</text>
+      <text class="stat-value">{{time}}秒</text>
+    </view>
+  </view>
+
+  <!-- Action Buttons -->
+  <view class="actions">
+    <button class="btn-primary" bindtap="nextAction">
+      {{passed ? '下一关' : '再来一次'}}
+    </button>
+    <button class="btn-secondary" bindtap="goHome">
+      返回首页
+    </button>
+  </view>
+</view>

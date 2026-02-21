@@ -1,0 +1,51 @@
+<view class="game-container">
+  <!-- Top Bar -->
+  <view class="top-bar">
+    <text class="level-label">第 {{level}} 关</text>
+    <text class="progress-label">{{progress}}</text>
+    <view class="lives">
+      <text wx:for="{{3}}" wx:key="*this" class="heart">
+        {{index < lives ? '❤️' : '🤍'}}
+      </text>
+    </view>
+  </view>
+
+  <!-- Timer Bar -->
+  <view class="timer-bar-track">
+    <view class="timer-bar-fill {{timerWarning ? 'warning' : ''}}" style="width: {{timerPercent}}%;"></view>
+  </view>
+
+  <!-- Word Display -->
+  <view class="word-area">
+    <text class="word-text {{shakeAnimation ? 'shake' : ''}}">{{currentWord}}</text>
+  </view>
+
+  <!-- Options -->
+  <view class="options-area">
+    <view
+      wx:for="{{options}}"
+      wx:key="index"
+      class="option-btn {{item.state}}"
+      bindtap="selectOption"
+      data-index="{{index}}"
+    >
+      <text class="option-label">{{optionLabels[index]}}</text>
+      <text class="option-text">{{item.meaning}}</text>
+    </view>
+  </view>
+</view>
+
+<!-- Revive Popup -->
+<view class="revive-overlay" wx:if="{{showRevivePopup}}">
+  <view class="revive-popup">
+    <text class="revive-icon">💔</text>
+    <text class="revive-title">生命耗尽</text>
+    <text class="revive-desc">看一段视频，获得1条生命继续挑战！</text>
+    <button class="btn-revive" bindtap="watchAdToRevive">
+      ▶ 看视频续命
+    </button>
+    <view class="revive-skip" bindtap="skipRevive">
+      <text class="revive-skip-text">放弃挑战</text>
+    </view>
+  </view>
+</view>

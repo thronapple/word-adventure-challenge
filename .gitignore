@@ -1,0 +1,8 @@
+node_modules/
+miniprogram_npm/
+project.private.config.json
+.DS_Store
+*.swp
+*.swo
+cloudfunctions/*/node_modules/
+CLAUDE.md

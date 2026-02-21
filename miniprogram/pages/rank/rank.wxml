@@ -1,0 +1,81 @@
+<view class="container rank-container">
+  <!-- Tab Bar -->
+  <view class="tab-bar">
+    <view class="tab-item {{activeTab === 'global' ? 'active' : ''}}" bindtap="switchTab" data-tab="global">
+      <text>全服排行</text>
+    </view>
+    <view class="tab-item {{activeTab === 'friends' ? 'active' : ''}}" bindtap="switchTab" data-tab="friends">
+      <text>好友排行</text>
+    </view>
+  </view>
+
+  <!-- Global Tab Content -->
+  <view class="tab-content" wx:if="{{activeTab === 'global'}}">
+    <!-- Loading -->
+    <view class="loading-wrap" wx:if="{{loading}}">
+      <text class="loading-text">加载中...</text>
+    </view>
+
+    <!-- Leaderboard List -->
+    <view class="rank-list" wx:elif="{{topList.length > 0}}">
+      <view
+        wx:for="{{topList}}"
+        wx:key="rank"
+        class="rank-item {{item.isMe ? 'is-me' : ''}}"
+      >
+        <view class="rank-number {{item.rank <= 3 ? 'top-' + item.rank : ''}}">
+          <text wx:if="{{item.rank === 1}}">🥇</text>
+          <text wx:elif="{{item.rank === 2}}">🥈</text>
+          <text wx:elif="{{item.rank === 3}}">🥉</text>
+          <text wx:else>{{item.rank}}</text>
+        </view>
+        <view class="rank-avatar">
+          <image wx:if="{{item.avatarUrl}}" src="{{item.avatarUrl}}" mode="aspectFill" class="avatar-img" />
+          <view wx:else class="avatar-placeholder">
+            <text>{{item.nickName[0] || '?'}}</text>
+          </view>
+        </view>
+        <view class="rank-info">
+          <text class="rank-name">{{item.nickName}}</text>
+          <text class="rank-detail">第{{item.highestLevel}}关 · ⭐{{item.totalStars}}</text>
+        </view>
+        <text class="rank-score">{{item.compositeScore}}</text>
+      </view>
+    </view>
+
+    <!-- Empty State -->
+    <view class="empty-state" wx:else>
+      <text class="empty-text">暂无排名数据</text>
+      <text class="empty-hint">完成关卡后即可上榜</text>
+    </view>
+
+    <!-- My Rank Card (if not in top 50) -->
+    <view class="my-rank-card" wx:if="{{myRank && myRank.rank > 50}}">
+      <view class="rank-divider">
+        <text class="divider-text">· · ·</text>
+      </view>
+      <view class="rank-item is-me">
+        <view class="rank-number">
+          <text>{{myRank.rank}}</text>
+        </view>
+        <view class="rank-avatar">
+          <view class="avatar-placeholder me">
+            <text>我</text>
+          </view>
+        </view>
+        <view class="rank-info">
+          <text class="rank-name">{{myRank.nickName}}</text>
+          <text class="rank-detail">第{{myRank.highestLevel}}关 · ⭐{{myRank.totalStars}}</text>
+        </view>
+        <text class="rank-score">{{myRank.compositeScore}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- Friends Tab Content -->
+  <view class="tab-content friends-tab" wx:if="{{activeTab === 'friends'}}">
+    <open-data class="friend-rank-canvas-wrap">
+      <canvas type="2d" class="friend-rank-canvas"></canvas>
+    </open-data>
+  </view>
+</view>
